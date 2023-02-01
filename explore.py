@@ -112,6 +112,16 @@ def plot_clusters(df,col1,col2,col3):
     
     return sns.relplot(data=df,x=col1,y=col2,hue=pred1),sns.relplot(data=df,x=col1,y=col3,hue=pred2),sns.relplot(data=df,x=col2,y=col3,hue=pred3)
 
-
+def cluster_Xsets(train,val,test,cols):
+    '''
+    Takes in each X dataset and returns a clustering grouping to each df. 
+    'cols' is a list of columns you want to cluster on
+    '''
+    kmeans = KMeans(n_clusters=3)
+    kmeans.fit(train[cols])
+    train['cluster'] = kmeans.predict(train[cols])
+    val['cluster'] = kmeans.predict(val[cols])
+    test['cluster'] = kmeans.predict(test[cols])
+    return train,val,test
    
     
