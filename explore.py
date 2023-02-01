@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 import sklearn.preprocessing
+from sklearn.cluster import KMeans
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 seed = 21
 
@@ -88,5 +91,27 @@ def plot_inertia(df):
 def plot_kmeans_cluster(df,n):  
     kmeans = KMeans(n_clusters=n, random_state=seed)
     kmeans.fit(df)
-
     sns.relplot(data=df,x=df.iloc[:,0],y=df.iloc[:,1],hue=pd.Series(kmeans.predict(df)))
+
+def plot_clusters(df,col1,col2,col3):
+    '''
+    This is used to plot the clusters of three different columns. It uses two variables at a time and returns three
+    plots hued with the cluster group. Used for exploration.
+    
+    '''
+    kmeans = KMeans(n_clusters=3)
+    
+    kmeans.fit(df[[col1,col2]])
+    pred1 = kmeans.predict(df[[col1,col2]])
+    
+    kmeans.fit(df[[col1,col3]])
+    pred2 = kmeans.predict(df[[col1,col3]])
+    
+    kmeans.fit(df[[col2,col3]])
+    pred3 = kmeans.predict(df[[col2,col3]])
+    
+    return sns.relplot(data=df,x=col1,y=col2,hue=pred1),sns.relplot(data=df,x=col1,y=col3,hue=pred2),sns.relplot(data=df,x=col2,y=col3,hue=pred3)
+
+
+   
+    
