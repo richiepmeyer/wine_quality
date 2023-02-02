@@ -123,5 +123,10 @@ def cluster_Xsets(train,val,test,cols):
     val['cluster'] = kmeans.predict(val[cols])
     test['cluster'] = kmeans.predict(test[cols])
     return train,val,test
+
+def add_exploration_columns(df):
+    df['acid_alc_sugar']=(df['fixed_acidity']+df['volatile_acidity']+df['citric_acid']/3)/(df['alcohol']+df['residual_sugar']/2)
+    df['acid_chlor'] = (df['fixed_acidity']+df['volatile_acidity']+df['citric_acid']/3)/df['chlorides']
+    return df
    
     
