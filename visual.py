@@ -14,12 +14,12 @@ def barplot1(df):
 '''
 Function to plot the Total Acid/Alc+Sugar against Quality in a barplot
 '''
-    
-sns.barplot(y=df.acid_alc_sugar, x=df.quality)
-plt.ylabel('Total Acidity / Alcohol + Sugar')
-plt.xlabel('Quality')
-plt.title('Quality and Total Acidity / Alcohol + Sugar')
-plt.show()
+
+    sns.barplot(y=df.acid_alc_sugar, x=df.quality)
+    plt.ylabel('Total Acidity / Alcohol + Sugar')
+    plt.xlabel('Quality')
+    plt.title('Quality and Total Acidity / Alcohol + Sugar')
+    plt.show()
 
 #--------------------------------------------------------------------------------------------------
 
