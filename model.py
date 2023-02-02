@@ -73,9 +73,11 @@ def run_models(X_train,X_val,X_test,y_train,y_val,target):
             mod.append(c) # Append mod_name
             rmse.append(a) # Append rmse_train
             rmse_val.append(b) #Append rmse_validate
+    
+    df = pd.DataFrame({'model':mod,'rmse_train':rmse,'rmse_val':rmse_val}) # Create df out of listsb
+    df['difference'] = df['rmse_train'] - df['rmse_val']
 
-
-    return pd.DataFrame({'model':mod,'rmse_train':rmse,'rmse_val':rmse_val}) # Create df out of listsb
+    return df
 
 def model_test(ml_model,mod_name,X_test): #Create a function to check rmse on test set
     model = ml_model

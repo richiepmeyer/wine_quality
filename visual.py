@@ -11,9 +11,9 @@ from scipy import stats
 
 def barplot1(df):
 
-'''
-Function to plot the Total Acid/Alc+Sugar against Quality in a barplot
-'''
+    '''
+    Function to plot the Total Acid/Alc+Sugar against Quality in a barplot
+    '''
 
     sns.barplot(y=df.acid_alc_sugar, x=df.quality)
     plt.ylabel('Total Acidity / Alcohol + Sugar')
@@ -58,7 +58,7 @@ def barplot4(df):
     Function to show the relation between Density and Quality.
     '''
 
-    sns.barplot(y=train_s.density, x=train_s.quality)
+    sns.barplot(y=df.density_scaled, x=df.quality)
     plt.ylabel('Density')
     plt.xlabel('Quality')
     plt.title('Quality and Density')
