@@ -5,6 +5,9 @@ import sklearn.preprocessing
 from sklearn.cluster import KMeans
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression, LassoLars, TweedieRegressor
+from sklearn.feature_selection import RFE
+from sklearn.metrics import mean_squared_error
 
 seed = 21
 
@@ -129,4 +132,18 @@ def add_exploration_columns(df):
     df['acid_chlor'] = ((df['fixed_acidity']+df['volatile_acidity']+df['citric_acid'])/3)/df['chlorides']
     return df
    
+def rfe(x,y,k):
+
+    lm = LinearRegression()
+    rfe = RFE(lm,n_features_to_select=k)
+    rfe.fit(x,y)
     
+    mask = rfe.support_
+
+    return x.columns[mask]
+
+def calc_rmse(value,pred):
+    '''
+    Calculate rmse given two series: actual values and predicted values
+    '''
+    return mean_squared_error(value,pred)**(1/2)
