@@ -113,7 +113,9 @@ def plot_clusters(df,col1,col2,col3):
     kmeans.fit(df[[col2,col3]])
     pred3 = kmeans.predict(df[[col2,col3]])
     
-    return sns.relplot(data=df,x=col1,y=col2,hue=pred1),sns.relplot(data=df,x=col1,y=col3,hue=pred2),sns.relplot(data=df,x=col2,y=col3,hue=pred3)
+    sns.relplot(data=df,x=col1,y=col2,hue=pred1),sns.relplot(data=df,x=col1,y=col3,hue=pred2),sns.relplot(data=df,x=col2,y=col3,hue=pred3)
+    plt.show()
+
 
 def cluster_Xsets(train,val,test,cols):
     '''
