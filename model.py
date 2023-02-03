@@ -129,3 +129,12 @@ def establish_baseline(y_train,y_val):
     # Evaluate baseline on validate test
     y_val['baseline'] = round(y_train.quality.mean(),1)
     return y_train, y_val
+
+def test_model():
+    '''
+    Run our best model on our y_test and returns the rmse value
+    '''
+    lm = LinearRegression()
+    lm.fit(X_train_s,y_train)
+    preds = lm.predict(X_test_s)
+    return explore.calc_rmse(y_test,preds)
