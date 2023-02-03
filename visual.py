@@ -58,10 +58,72 @@ def barplot4(df):
     Function to show the relation between Density and Quality.
     '''
 
-    sns.barplot(y=df.density_scaled, x=df.quality)
+    sns.barplot(y=df.density, x=df.quality)
     plt.ylabel('Density')
     plt.xlabel('Quality')
     plt.title('Quality and Density')
     plt.show()
 
 #--------------------------------------------------------------------------------------------------
+
+def spearman1(df):
+
+    '''
+    Spearman's R test for Total acidity / alcohol+sugar in relatioin to quality
+    '''
+
+
+    corr, p = stats.spearmanr(df.acid_alc_sugar, df.quality)
+
+
+    print("Spearman's R Test Results")
+    print('--------------------------')
+    print(f'Correlation: {round(corr,2)}')
+    print(f'P-value: {p}')
+
+#--------------------------------------------------------------------------------------------------
+
+def spearman2(df):
+
+    '''
+    Spearmans R test for Total acidity / chlorides in relation to quality
+    '''
+
+    corr, p = stats.spearmanr(df.acid_chlor, df.quality)
+
+
+    print("Spearman's R Test Results")
+    print('--------------------------')
+    print(f'Correlation: {round(corr,2)}')
+    print(f'P-value: {p}')
+
+#--------------------------------------------------------------------------------------------------
+
+def chi(df):
+
+
+    red = df['color_red'] == 1
+    qlt = df['quality']
+
+    rw = pd.crosstab(qlt,red, colnames=['Red Wine'])
+
+    chi, p, degf, expected = stats.chi2_contingency(rw)
+
+
+    print('Chi-square Test Results')
+    print('-----------------------')
+    print(f'Chi value: {round(chi,2)}')
+    print(f'p-value: {p}')
+
+#--------------------------------------------------------------------------------------------------
+
+def pearsonr(df):
+
+
+    corr, p = stats.pearsonr(df.acid_alc_sugar, df.quality)
+
+
+    print("Pearson's R Test Results")
+    print('-------------------------')
+    print(f'Correlation: {round(corr,2)}')
+    print(f'P-value: {p}')
