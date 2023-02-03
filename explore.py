@@ -9,7 +9,11 @@ from sklearn.linear_model import LinearRegression, LassoLars, TweedieRegressor
 from sklearn.feature_selection import RFE
 from sklearn.metrics import mean_squared_error
 
+#------------------------------------------------------------------------------------------------------------
+
 seed = 21
+
+#------------------------------------------------------------------------------------------------------------
 
 def outlier_detector(df,column,k=1.5): #Run assign_outlier, not this one
     q1,q3 = df[column].quantile([.25,.75])
@@ -19,6 +23,8 @@ def outlier_detector(df,column,k=1.5): #Run assign_outlier, not this one
     print(column, lower_bound,upper_bound)
     return np.where(df[column]> upper_bound,1,0), np.where(df[column]< lower_bound,1,0)
 
+#------------------------------------------------------------------------------------------------------------
+
 def assign_outlier(df, cols):
     '''
     Returns a new df with outlier detection for passed in columns
@@ -27,10 +33,14 @@ def assign_outlier(df, cols):
         df[f'{col}_upper_outliers'],df[f'{col}_lower_outliers'] = outlier_detector(df,col)
     return df
 
+#------------------------------------------------------------------------------------------------------------
+
 def explore_nulls(df):
     null_count = df.isnull().sum()
     null_perc = df.isnull().sum()/df.shape[0]
     return pd.DataFrame({'null_count':null_count,'null_perc':null_perc})
+
+#------------------------------------------------------------------------------------------------------------
 
 def handle_missing_values(df, prop_required_column, prop_required_row):
     temp = explore_nulls(df) 
@@ -43,9 +53,13 @@ def handle_missing_values(df, prop_required_column, prop_required_row):
         
     return df
 
+#------------------------------------------------------------------------------------------------------------
+
 def print_outliers(df):
     outliers_cols = [col for col in df.columns if 'outliers' in col]
     return df[df[outliers_cols].any(axis=1)==1]
+
+#------------------------------------------------------------------------------------------------------------
 
 def split_data(df, target):
     '''
@@ -68,6 +82,8 @@ def split_data(df, target):
     
     return train, X_train, y_train, X_val, y_val, X_test, y_test
 
+#------------------------------------------------------------------------------------------------------------
+
 def scale_minmax(X_train,X_val,X_test):
     '''
     Takes in train, validate, and test sets and returns the minmax scaled dfs
@@ -80,6 +96,8 @@ def scale_minmax(X_train,X_val,X_test):
     
     return X_train,X_val,X_test
 
+#------------------------------------------------------------------------------------------------------------
+
 def plot_inertia(df):
     inertia = []
     for k in range(1,10):
@@ -91,10 +109,14 @@ def plot_inertia(df):
     
     return sns.relplot(data=clust_inert,x='n_clusters',y='inertia',kind='line')
 
+#------------------------------------------------------------------------------------------------------------
+
 def plot_kmeans_cluster(df,n):  
     kmeans = KMeans(n_clusters=n, random_state=seed)
     kmeans.fit(df)
     sns.relplot(data=df,x=df.iloc[:,0],y=df.iloc[:,1],hue=pd.Series(kmeans.predict(df)))
+
+#------------------------------------------------------------------------------------------------------------
 
 def plot_clusters(df,col1,col2,col3):
     '''
@@ -116,6 +138,7 @@ def plot_clusters(df,col1,col2,col3):
     sns.relplot(data=df,x=col1,y=col2,hue=pred1),sns.relplot(data=df,x=col1,y=col3,hue=pred2),sns.relplot(data=df,x=col2,y=col3,hue=pred3)
     plt.show()
 
+#------------------------------------------------------------------------------------------------------------
 
 def cluster_Xsets(train,val,test,cols):
     '''
@@ -129,11 +152,15 @@ def cluster_Xsets(train,val,test,cols):
     test['cluster'] = kmeans.predict(test[cols])
     return train,val,test
 
+#------------------------------------------------------------------------------------------------------------
+
 def add_exploration_columns(df):
     df['acid_alc_sugar']=((df['fixed_acidity']+df['volatile_acidity']+df['citric_acid'])/3)/((df['alcohol']+df['residual_sugar'])/2)
     df['acid_chlor'] = ((df['fixed_acidity']+df['volatile_acidity']+df['citric_acid'])/3)/df['chlorides']
     return df
-   
+
+#------------------------------------------------------------------------------------------------------------
+
 def rfe(x,y,k):
 
     lm = LinearRegression()
@@ -144,8 +171,26 @@ def rfe(x,y,k):
 
     return x.columns[mask]
 
+#------------------------------------------------------------------------------------------------------------
+
 def calc_rmse(value,pred):
     '''
     Calculate rmse given two series: actual values and predicted values
     '''
     return mean_squared_error(value,pred)**(1/2)
+
+#------------------------------------------------------------------------------------------------------------
+
+def copy_train(df, df2):
+
+    '''
+    Function that takes in train dataset and returns a deep copy. Also, appends quality column on to new dataframe.
+    '''
+
+    # Deep copy
+    train_scaled = df.copy()
+
+    # Add new column for quality
+    train_scaled['quality'] = df2['quality']
+
+    return train_scaled

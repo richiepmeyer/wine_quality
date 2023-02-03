@@ -14,7 +14,7 @@ This project undertakes the task of uncovering what characteristics influence a 
 # Initial Hypothesis
 
 
-## Our initial hypthosis is that the proportion of certain characterics influence the quality of wine. Most notably, alcohol and sugar, total acidity, and chlorides. 
+### Our initial hypthosis is that the proportion of certain characterics influence the quality of wine. Most notably, alcohol and sugar, total acidity, and chlorides. 
 
 
 # Questions
@@ -42,7 +42,6 @@ Project planning (lay out your process through the data science pipeline)
 
 
 # Data dictionary
-'color': white = 0, red = 1
 
 | Feature | Definition |
 | :-- | :-- |
@@ -60,10 +59,24 @@ Project planning (lay out your process through the data science pipeline)
 | color_red | 0 = white wine<br>1 = red wine<br>|
 
 
+# Steps to Reproduce
+1. Clone this repo.
+2. To acquire data, go to data.world and download red wine and white wine data.
+    - link: https://data.world/food/wine-quality
+3. Use functions in acquire.py to upload data
+5. Use functions in explore.py to clean and explore data.
+5. Use functions in visual.py to plot the charts and stats test.
+5. Use same configurations for models.
+6. Use functions in model.py to evaluate models.
 
 
-Instructions or an explanation of how someone else can reproduce your project and findings (What would someone need to be able to recreate your project on their own?)
+# Conclusion
 
+- Determined that alcohol, volatile acidity, density, and chlorides have significant influence on a wine's quality.
+- Our model improves upon the baseline by 0.13 on the RMSE value.
 
-Key findings, recommendations, and takeaways from your project.
+# Recommendations
+
+Use different features such as sulfur dioxide and pH to see how they influence quality.
+Gather data on tannins to see how they influence quality.
 
