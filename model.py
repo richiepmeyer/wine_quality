@@ -135,6 +135,17 @@ def test_model():
     Run our best model on our y_test and returns the rmse value
     '''
     lm = LinearRegression()
-    lm.fit(X_train_s,y_train)
+    lm.fit(X_train_s,y_train['quality'])
     preds = lm.predict(X_test_s)
-    return explore.calc_rmse(y_test,preds)
+    return explore.calc_rmse(y_test['quality'],preds)
+
+def final_model_visual():
+    '''
+    Create bar chart that shows the difference in RMSE between our baseline model and test model
+    '''
+    test_rmse = test_model()
+    baseline_rmse = initial_models[initial_models.model=='baseline']['rmse_train'][0]
+    final = pd.DataFrame({'Model':['Baseline','Linear Regression'],'RMSE':[baseline_rmse,test_rmse]})
+    sns.barplot(data=final,x='Model',y='RMSE',palette=['wheat','firebrick'])
+    plt.title('Final Model vs. Baseline Model')
+    plt.show()
