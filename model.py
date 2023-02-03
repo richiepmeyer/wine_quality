@@ -22,6 +22,7 @@ from sklearn.cluster import KMeans
 
 seed = 21
 
+#------------------------------------------------------------------------------------------------------------
 
 def drop_infinite(X_train,X_val,X_test,y_train,y_val,y_test):
     
@@ -38,6 +39,8 @@ def drop_infinite(X_train,X_val,X_test,y_train,y_val,y_test):
     y_test = y_test.drop(ind)
     
     return X_train,X_val,X_test,y_train,y_val,y_test
+
+#------------------------------------------------------------------------------------------------------------
 
 # y_train[target], y_train.baseline, X_train, X_val
 def run_models(X_train,X_val,X_test,y_train,y_val,target): 
@@ -79,6 +82,8 @@ def run_models(X_train,X_val,X_test,y_train,y_val,target):
 
     return df
 
+#------------------------------------------------------------------------------------------------------------
+
 def model_test(ml_model,mod_name,X_test): #Create a function to check rmse on test set
     model = ml_model
     model.fit(X_train_pf3,y_train.quality)
@@ -86,6 +91,8 @@ def model_test(ml_model,mod_name,X_test): #Create a function to check rmse on te
     rmse_test =calc_rmse(y_test.quality,pred)
     
     return rmse_test
+
+#------------------------------------------------------------------------------------------------------------
 
 def model(ml_model,mod_name,X_train,X_val,y_train,y_val,target): #Create model function calculate rmse on train and validate
     '''
@@ -106,6 +113,8 @@ def model(ml_model,mod_name,X_train,X_val,y_train,y_val,target): #Create model f
     
     return rmse_train,rmse_validate, mod_name
 
+#------------------------------------------------------------------------------------------------------------
+
 def transform_poly(X_train,X_val,X_test):
     # Transform our X_train and X_val set into polynomials of range 2-3
     pf2 = PolynomialFeatures(degree=2)
@@ -119,6 +128,8 @@ def transform_poly(X_train,X_val,X_test):
     X_test_pf3 = pf3.fit_transform(X_test)
     
     return X_train_pf2,X_val_pf2,X_test_pf2,X_train_pf3,X_val_pf3,X_test_pf3
+
+#------------------------------------------------------------------------------------------------------------
 
 def establish_baseline(y_train,y_val):
     '''
