@@ -1,7 +1,7 @@
 # Taste of Fine Wine
 
 
-# Project goals:
+# Project Goals:
 - Determine drivers of quality
 - Utilize drivers to create a model to predict quality
 - Develop deeper understanding on how drivers influence quality
@@ -12,9 +12,7 @@ This project undertakes the task of uncovering what characteristics influence a 
 
 
 # Initial Hypothesis
-
-
-### Our initial hypthosis is that the proportion of certain characterics influence the quality of wine. Most notably, alcohol and sugar, total acidity, and chlorides. 
+Our initial hypthosis is that the proportion of certain characterics influence the quality of wine. Most notably, alcohol and sugar, total acidity, and chlorides. 
 
 
 # Questions
@@ -57,6 +55,8 @@ Project planning (lay out your process through the data science pipeline)
 | alcohol | alcohol |
 | quality | rating of wine |
 | color_red | 0 = white wine<br>1 = red wine<br>|
+| acid_alc_sugar | Total acidity divided by alcohol plus sugar |
+| acid_chlor |Total acidity divided by chlorides |
 
 
 # Steps to Reproduce
